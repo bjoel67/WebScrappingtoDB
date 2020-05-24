@@ -12,8 +12,8 @@ result=[]
 names=[]
 marks=[]
 missingNumbers=[]
-#for x in range(1400000001,1499999999):
-for x in range(1417109172,1417109192):
+for x in range(1400000001,1499999999):
+#for x in range(1417109172,1417109192):
     url="https://www.vidyavision.com/results/ssc2014.aspx?h="+str(x)
     page = requests.get(url).text
     soup = BeautifulSoup(page, "html.parser")
@@ -35,8 +35,6 @@ with open('output.csv', 'w', newline='') as myfile:
 myfile.close()
 print("Done Writing to file")
 
-# ACCESS_KEY = 'AKIAXX2PATWICUYBJRV7'
-# SECRET_KEY = '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'
 BUCKET_NAME = 'bjoelr'
 FILE_NAME = 'output.csv'
 data = open('output.csv', 'rb')
