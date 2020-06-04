@@ -13,19 +13,21 @@ names=[]
 marks=[]
 missingNumbers=[]
 for x in range(1400000001,1499999999):
-#for x in range(1417109172,1417109192):
-    url="https://www.vidyavision.com/results/ssc2014.aspx?h="+str(x)
-    page = requests.get(url).text
-    soup = BeautifulSoup(page, "html.parser")
-    if(soup.__len__()!=0):
-        registrationNumber.append(str(soup).split('~')[0])
-        names.append(str(soup).split('~')[1])
-        result.append(str(soup).split('~')[-1])
-        marks.append(str(soup).rsplit("~")[-3])
-        print(str(x)+"OK")
-    else:
+ try:
+     url="https://www.vidyavision.com/results/ssc2014.aspx?h="+str(x)
+     page = requests.get(url).text
+     soup = BeautifulSoup(page, "html.parser")
+     if(soup.__len__()!=0):
+         registrationNumber.append(str(soup).split('~')[0])
+         names.append(str(soup).split('~')[1])
+         result.append(str(soup).split('~')[-1])
+         marks.append(str(soup).rsplit("~")[-3])
+         print(str(x)+"OK")
+     else:
         missingNumbers.append(x)
         print(str(x) + "Not  OK")
+ except:
+    print("Error"+str(x))
 d = [registrationNumber, names,marks,result]
 export_data = zip_longest(*d, fillvalue = '')
 with open('output.csv', 'w', newline='') as myfile:
@@ -34,7 +36,6 @@ with open('output.csv', 'w', newline='') as myfile:
       wr.writerows(export_data)
 myfile.close()
 print("Done Writing to file")
-
 BUCKET_NAME = 'bjoelr'
 FILE_NAME = 'output.csv'
 data = open('output.csv', 'rb')
